@@ -25,6 +25,9 @@ def new_game():
     while count_of_wrong_letters < 8:
         letter = input("Letter: ")
         match letter:
+            case letter if not letter.isalpha() or len(letter) != 1:
+                print("[Error] Invalid letter, please try again.")
+
             case letter if letter in word:
                 guessed_letters.append(letter)
                 print("[Congratulations] You found a letter!")
@@ -34,7 +37,7 @@ def new_game():
                 if encrypted_word == word:
                     print("\n[Congratulations] You win!\n")
                     main()
-                    
+
             case letter if letter not in word:
                 print("[Error] Wrong letter")
                 count_of_wrong_letters += 1
