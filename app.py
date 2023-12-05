@@ -18,11 +18,11 @@ def new_game():
     word = get_word()
     guessed_letters = []
     
-    print(f"[Word]: {'*' * len(word)}, {word}")
+    print(f"[Word]: {'*' * len(word)}")
     
     count_of_wrong_letters = 0
 
-    while count_of_wrong_letters < 8:
+    while count_of_wrong_letters <= 6:
         letter = input("Letter: ")
         match letter:
             case letter if not letter.isalpha() or len(letter) != 1:
@@ -40,16 +40,15 @@ def new_game():
 
             case letter if letter not in word:
                 print("[Error] Wrong letter")
+                print(draw_hangman(count_of_wrong_letters))
                 count_of_wrong_letters += 1
-
-    if count_of_wrong_letters == 8:
-        print("\n[Game Over] You lose!\n")
-        main()
-    
-
+                if count_of_wrong_letters == 6:
+                    print("\n[Game Over] You lose!\n")
+                    main()
+                
 def get_word():
     current_directory = os.path.dirname(__file__)
-    file_path = os.path.join(current_directory, 'resources', 'words.txt')
+    file_path = os.path.join(current_directory, 'resources', 'ru_wordlist.txt')
     with open(file_path, 'r', encoding='utf-8') as file:
         lines = file.readlines()
         count_of_words = len(lines)
@@ -58,6 +57,81 @@ def get_word():
 
     return word
 
+def draw_hangman(attempts):
+    stages = [
+        """
+           --------
+           |      |
+           |
+           |
+           |
+           |
+        -------
+        """
+        ,
+        """
+           --------
+           |      |
+           |      O
+           |
+           |
+           |
+        -------
+        """
+        ,
+        """
+           --------
+           |      |
+           |      O
+           |      |
+           |
+           |
+        -------
+        """
+        ,
+        """
+           --------
+           |      |
+           |      O
+           |     /|
+           |
+           |
+        -------
+        """
+        ,
+        """
+           --------
+           |      |
+           |      O
+           |     /|\\
+           |
+           |
+        -------
+        """
+        ,
+        """
+           --------
+           |      |
+           |      O
+           |     /|\\
+           |     / 
+           |
+        -------
+        """
+        ,
+        """
+           --------
+           |      |
+           |      O
+           |     /|\\
+           |     / \\
+           |
+        -------
+        """
+    ]
+
+    return stages[attempts]
+            
 
 if __name__ == '__main__':
     main()
