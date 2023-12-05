@@ -43,6 +43,7 @@ def new_game():
                 print("[Error] This letter has already been entered, please try again.")
 
             case letter if not letter.isalpha() or len(letter) != 1:
+                
                 print("[Error] Invalid letter, please try again.")
 
             case letter if letter in word:

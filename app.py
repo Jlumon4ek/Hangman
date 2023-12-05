@@ -14,7 +14,6 @@ def main():
             print("[Error] Invalid Option, please try again.\n")
             main()
 
-                
 
 if __name__ == '__main__':
     main()
